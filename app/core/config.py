@@ -6,7 +6,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    app_name: str = "SignalDesk AI"
+    app_name: str = "Plaincase Support API"
     app_env: str = "development"
     log_level: str = "INFO"
     default_provider: str = "mock"
@@ -22,4 +22,3 @@ class Settings(BaseSettings):
 @lru_cache
 def get_settings() -> Settings:
     return Settings()
-

@@ -1,4 +1,4 @@
-# SignalDesk AI — Structured LLM Integration Service
+# Plaincase — Structured Support Request Service
 
 A production-minded FastAPI service that turns unstructured customer messages into validated support-ticket data. It demonstrates the integration work behind reliable AI features: provider abstraction, strict schemas, bounded retries, timeouts, idempotency, audit history, and operational telemetry.
 
@@ -132,4 +132,3 @@ For a client deployment, the next steps would typically include PostgreSQL, Redi
 ## Author
 
 Built by **Zesai Yue**, Python & FastAPI backend developer focused on API and AI integrations.
-

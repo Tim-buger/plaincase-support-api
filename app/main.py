@@ -28,7 +28,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 
 
 app = FastAPI(
-    title="SignalDesk AI",
+    title="Plaincase Support API",
     description=(
         "Reliable structured LLM extraction with provider adapters and operational telemetry."
     ),
