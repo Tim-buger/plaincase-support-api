@@ -3,116 +3,174 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="A production-minded structured LLM extraction demo." />
-    <title>SignalDesk AI — Extraction Control Room</title>
+    <meta name="description" content="A support queue with structured ticket analysis." />
+    <meta name="theme-color" content="#f5f4f0" />
+    <title>Plaincase — Support queue</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
-    <div class="noise" aria-hidden="true"></div>
-    <header class="masthead">
-      <a class="brand" href="/" aria-label="SignalDesk AI home">
-        <span class="brand-mark">S/D</span>
-        <span>SignalDesk AI</span>
+    <a class="skip-link" href="#workspace">Skip to workspace</a>
+
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Plaincase support queue">
+        <span class="brand-symbol">p</span>
+        <span>plaincase</span>
       </a>
-      <div class="system-state"><span class="pulse"></span> extraction node online</div>
-      <a class="docs-link" href="/docs">API DOCS ↗</a>
+      <nav aria-label="Primary navigation">
+        <a class="active" href="/">Queue <span>7</span></a>
+        <a href="/docs">API docs</a>
+      </nav>
+      <div class="operator">
+        <span class="online-dot"></span>
+        <span>Zesai Yue</span>
+        <span class="avatar">ZY</span>
+      </div>
     </header>
 
-    <main>
-      <section class="hero">
-        <div class="eyebrow">STRUCTURED INTELLIGENCE / BUILD 0.1</div>
-        <h1>Turn messy requests<br />into <em>decisions.</em></h1>
-        <p class="lede">A reliable extraction pipeline for support operations—schema-validated output, retries, idempotency, and an audit trail.</p>
-        <div class="hero-rule"><span>INPUT</span><i></i><span>VALIDATE</span><i></i><span>ROUTE</span></div>
+    <main id="workspace" class="workspace">
+      <section class="page-head">
+        <div>
+          <p class="breadcrumb">Support / Unassigned</p>
+          <h1>Support queue</h1>
+          <p class="page-note">Review incoming requests before they reach the service team.</p>
+        </div>
+        <div class="queue-summary" aria-label="Queue summary">
+          <div><strong>7</strong><span>waiting</span></div>
+          <div><strong>2</strong><span>high priority</span></div>
+          <div><strong>14m</strong><span>oldest request</span></div>
+        </div>
       </section>
 
-      <section class="console" aria-label="Support ticket extraction demo">
-        <div class="console-bar">
-          <div><span class="red-dot"></span> LIVE REQUEST CONSOLE</div>
-          <div class="run-id" id="run-id">RUN / STANDBY</div>
-        </div>
+      <section class="desk" aria-label="Support ticket workspace">
+        <aside class="ticket-column">
+          <div class="column-head">
+            <h2>Unassigned</h2>
+            <button class="icon-button" type="button" aria-label="Refresh queue">↻</button>
+          </div>
+          <label class="search-field">
+            <span class="sr-only">Search tickets</span>
+            <input type="search" placeholder="Search requests" />
+            <kbd>⌘ K</kbd>
+          </label>
 
-        <div class="console-grid">
-          <form id="extract-form" class="input-panel">
-            <div class="panel-heading">
-              <span>01</span>
-              <div><strong>Raw message</strong><small>Unstructured customer input</small></div>
+          <div class="ticket-list" role="list">
+            <button class="ticket active" type="button" role="listitem">
+              <span class="ticket-top"><b>Checkout API timing out</b><time>2m</time></span>
+              <span class="ticket-from">Marta Ruiz · Willow &amp; Pine</span>
+              <span class="ticket-preview">Our production API has been timing out for 40 minutes…</span>
+              <span class="ticket-meta"><i class="priority priority-high"></i> Technical</span>
+            </button>
+            <button class="ticket" type="button" role="listitem">
+              <span class="ticket-top"><b>Duplicate invoice charge</b><time>8m</time></span>
+              <span class="ticket-from">Darren Okafor · Northstar Labs</span>
+              <span class="ticket-preview">We were charged twice for invoice #INV-8421…</span>
+              <span class="ticket-meta"><i class="priority priority-medium"></i> Billing</span>
+            </button>
+            <button class="ticket" type="button" role="listitem">
+              <span class="ticket-top"><b>Cannot invite a teammate</b><time>14m</time></span>
+              <span class="ticket-from">Keiko Tanaka · Studio Kinu</span>
+              <span class="ticket-preview">The invite link expires immediately after I send it…</span>
+              <span class="ticket-meta"><i class="priority priority-low"></i> Account</span>
+            </button>
+          </div>
+        </aside>
+
+        <article class="conversation">
+          <header class="conversation-head">
+            <div>
+              <span id="ticket-number" class="ticket-number">#PC-1847</span>
+              <h2 id="ticket-title">Checkout API timing out</h2>
             </div>
+            <span class="status-chip">New</span>
+          </header>
 
-            <label class="sr-only" for="message">Customer message</label>
+          <div class="customer-row">
+            <span id="customer-avatar" class="customer-avatar">MR</span>
+            <div><strong id="customer-name">Marta Ruiz</strong><span id="customer-email">marta@willowandpine.co</span></div>
+            <time id="ticket-time">Today, 10:42</time>
+          </div>
+
+          <form id="extract-form" class="message-form">
+            <label for="message">Customer message</label>
             <textarea id="message" maxlength="5000">Our production API has been timing out for 40 minutes and all customer checkouts are blocked. This happened again after yesterday's deployment. Please help ASAP.</textarea>
-
-            <div class="form-footer">
+            <div class="message-actions">
               <label class="provider-field">
-                <span>PROVIDER</span>
+                <span>Analysis provider</span>
                 <select id="provider">
-                  <option value="mock">Mock / no key required</option>
-                  <option value="openai">OpenAI / configured server key</option>
+                  <option value="mock">Local demo</option>
+                  <option value="openai">OpenAI</option>
                 </select>
               </label>
-              <button id="run-button" type="submit"><span>Run extraction</span><b>→</b></button>
+              <button id="run-button" class="primary-button" type="submit">
+                <span>Analyze request</span>
+              </button>
             </div>
           </form>
 
-          <div class="output-panel" aria-live="polite">
-            <div class="panel-heading">
-              <span>02</span>
-              <div><strong>Validated signal</strong><small>Pydantic schema output</small></div>
-              <div class="validation-badge" id="validation-badge">READY</div>
-            </div>
+          <section class="activity" aria-label="Ticket activity">
+            <h3>Activity</h3>
+            <div class="activity-row"><span class="activity-dot"></span><p>Request received through API</p><time>10:42</time></div>
+            <div id="activity-analysis" class="activity-row hidden"><span class="activity-dot complete"></span><p>Analysis completed and validated</p><time>just now</time></div>
+          </section>
+        </article>
 
-            <div id="empty-state" class="empty-state">
-              <div class="radar"><span></span></div>
-              <p>Awaiting signal</p>
-            </div>
+        <aside class="analysis-panel" aria-live="polite">
+          <header class="analysis-head">
+            <div><p>Request analysis</p><span id="validation-badge">Not analyzed</span></div>
+            <span class="schema-name">support_ticket.v1</span>
+          </header>
 
-            <div id="result" class="result hidden">
-              <div class="priority-line">
-                <span id="priority">—</span>
-                <span id="category">—</span>
-              </div>
-              <h2 id="summary">—</h2>
-              <div class="action-block">
-                <small>NEXT RECOMMENDED ACTION</small>
-                <p id="next-action">—</p>
-              </div>
-              <div class="signal-grid">
-                <div><small>SENTIMENT</small><strong id="sentiment">—</strong></div>
-                <div><small>HUMAN REVIEW</small><strong id="human-review">—</strong></div>
-                <div><small>TAGS</small><strong id="tags">—</strong></div>
-              </div>
-            </div>
-
-            <div id="error" class="error hidden"></div>
+          <div id="empty-state" class="empty-state">
+            <div class="empty-document"><span></span><span></span><span></span></div>
+            <h2>No analysis yet</h2>
+            <p>Run the message through the extraction service to prepare it for routing.</p>
           </div>
-        </div>
 
-        <div class="telemetry">
-          <div><small>LATENCY</small><strong id="latency">— ms</strong></div>
-          <div><small>ATTEMPTS</small><strong id="attempts">—</strong></div>
-          <div><small>MODEL</small><strong id="model">—</strong></div>
-          <div><small>CACHE</small><strong id="cache">MISS</strong></div>
-          <div><small>SCHEMA</small><strong id="schema">support_ticket.v1</strong></div>
-        </div>
-      </section>
+          <div id="result" class="result hidden">
+            <section class="routing-block">
+              <p class="field-label">Routing</p>
+              <div class="routing-row">
+                <div><span>Category</span><strong id="category">—</strong></div>
+                <div><span>Priority</span><strong id="priority">—</strong></div>
+              </div>
+            </section>
 
-      <section class="capabilities">
-        <div class="section-index">03 / RELIABILITY LAYER</div>
-        <h2>Built beyond the happy path.</h2>
-        <div class="capability-list">
-          <article><span>01</span><h3>Schema first</h3><p>Typed, validated output that downstream systems can trust.</p></article>
-          <article><span>02</span><h3>Failure aware</h3><p>Timeouts, bounded retries, and normalized provider errors.</p></article>
-          <article><span>03</span><h3>Duplicate safe</h3><p>Idempotency keys prevent repeated calls and inconsistent writes.</p></article>
-          <article><span>04</span><h3>Operational</h3><p>Request IDs, latency data, JSON logs, and persistent audit history.</p></article>
-        </div>
+            <section class="result-section">
+              <p class="field-label">Summary</p>
+              <p id="summary" class="summary-text">—</p>
+            </section>
+
+            <section class="result-section recommendation">
+              <p class="field-label">Recommended next step</p>
+              <p id="next-action">—</p>
+            </section>
+
+            <dl class="detail-list">
+              <div><dt>Sentiment</dt><dd id="sentiment">—</dd></div>
+              <div><dt>Human review</dt><dd id="human-review">—</dd></div>
+              <div><dt>Tags</dt><dd id="tags">—</dd></div>
+            </dl>
+
+            <details class="run-details">
+              <summary>Run details</summary>
+              <dl>
+                <div><dt>Request</dt><dd id="run-id">—</dd></div>
+                <div><dt>Latency</dt><dd id="latency">—</dd></div>
+                <div><dt>Attempts</dt><dd id="attempts">—</dd></div>
+                <div><dt>Model</dt><dd id="model">—</dd></div>
+                <div><dt>Cache</dt><dd id="cache">—</dd></div>
+              </dl>
+            </details>
+          </div>
+
+          <div id="error" class="error hidden" role="alert"></div>
+        </aside>
       </section>
     </main>
 
-    <footer><span>FASTAPI / PYDANTIC / OPENAI RESPONSES API</span><span>ENGINEERED BY ZESAI YUE</span></footer>
     <script src="/static/app.js"></script>
   </body>
 </html>
-
