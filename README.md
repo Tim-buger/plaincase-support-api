@@ -4,6 +4,8 @@ A production-minded FastAPI service that turns unstructured customer messages in
 
 The included deterministic Mock Provider means the entire application and UI work without a paid API key. Add an OpenAI key to exercise the real structured-output path.
 
+![Plaincase support queue](docs/images/plaincase-support-queue.png)
+
 ## What this project demonstrates
 
 - **Reliable LLM integration** — OpenAI Responses API with Pydantic structured output
