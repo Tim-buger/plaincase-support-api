@@ -1,0 +1,17 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DATABASE_PATH: /app/data/audit.db
+    volumes:
+      - audit_data:/app/data
+    restart: unless-stopped
+
+volumes:
+  audit_data:
+

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A production-minded structured LLM extraction demo." />
+    <title>SignalDesk AI — Extraction Control Room</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="SignalDesk AI home">
+        <span class="brand-mark">S/D</span>
+        <span>SignalDesk AI</span>
+      </a>
+      <div class="system-state"><span class="pulse"></span> extraction node online</div>
+      <a class="docs-link" href="/docs">API DOCS ↗</a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="eyebrow">STRUCTURED INTELLIGENCE / BUILD 0.1</div>
+        <h1>Turn messy requests<br />into <em>decisions.</em></h1>
+        <p class="lede">A reliable extraction pipeline for support operations—schema-validated output, retries, idempotency, and an audit trail.</p>
+        <div class="hero-rule"><span>INPUT</span><i></i><span>VALIDATE</span><i></i><span>ROUTE</span></div>
+      </section>
+
+      <section class="console" aria-label="Support ticket extraction demo">
+        <div class="console-bar">
+          <div><span class="red-dot"></span> LIVE REQUEST CONSOLE</div>
+          <div class="run-id" id="run-id">RUN / STANDBY</div>
+        </div>
+
+        <div class="console-grid">
+          <form id="extract-form" class="input-panel">
+            <div class="panel-heading">
+              <span>01</span>
+              <div><strong>Raw message</strong><small>Unstructured customer input</small></div>
+            </div>
+
+            <label class="sr-only" for="message">Customer message</label>
+            <textarea id="message" maxlength="5000">Our production API has been timing out for 40 minutes and all customer checkouts are blocked. This happened again after yesterday's deployment. Please help ASAP.</textarea>
+
+            <div class="form-footer">
+              <label class="provider-field">
+                <span>PROVIDER</span>
+                <select id="provider">
+                  <option value="mock">Mock / no key required</option>
+                  <option value="openai">OpenAI / configured server key</option>
+                </select>
+              </label>
+              <button id="run-button" type="submit"><span>Run extraction</span><b>→</b></button>
+            </div>
+          </form>
+
+          <div class="output-panel" aria-live="polite">
+            <div class="panel-heading">
+              <span>02</span>
+              <div><strong>Validated signal</strong><small>Pydantic schema output</small></div>
+              <div class="validation-badge" id="validation-badge">READY</div>
+            </div>
+
+            <div id="empty-state" class="empty-state">
+              <div class="radar"><span></span></div>
+              <p>Awaiting signal</p>
+            </div>
+
+            <div id="result" class="result hidden">
+              <div class="priority-line">
+                <span id="priority">—</span>
+                <span id="category">—</span>
+              </div>
+              <h2 id="summary">—</h2>
+              <div class="action-block">
+                <small>NEXT RECOMMENDED ACTION</small>
+                <p id="next-action">—</p>
+              </div>
+              <div class="signal-grid">
+                <div><small>SENTIMENT</small><strong id="sentiment">—</strong></div>
+                <div><small>HUMAN REVIEW</small><strong id="human-review">—</strong></div>
+                <div><small>TAGS</small><strong id="tags">—</strong></div>
+              </div>
+            </div>
+
+            <div id="error" class="error hidden"></div>
+          </div>
+        </div>
+
+        <div class="telemetry">
+          <div><small>LATENCY</small><strong id="latency">— ms</strong></div>
+          <div><small>ATTEMPTS</small><strong id="attempts">—</strong></div>
+          <div><small>MODEL</small><strong id="model">—</strong></div>
+          <div><small>CACHE</small><strong id="cache">MISS</strong></div>
+          <div><small>SCHEMA</small><strong id="schema">support_ticket.v1</strong></div>
+        </div>
+      </section>
+
+      <section class="capabilities">
+        <div class="section-index">03 / RELIABILITY LAYER</div>
+        <h2>Built beyond the happy path.</h2>
+        <div class="capability-list">
+          <article><span>01</span><h3>Schema first</h3><p>Typed, validated output that downstream systems can trust.</p></article>
+          <article><span>02</span><h3>Failure aware</h3><p>Timeouts, bounded retries, and normalized provider errors.</p></article>
+          <article><span>03</span><h3>Duplicate safe</h3><p>Idempotency keys prevent repeated calls and inconsistent writes.</p></article>
+          <article><span>04</span><h3>Operational</h3><p>Request IDs, latency data, JSON logs, and persistent audit history.</p></article>
+        </div>
+      </section>
+    </main>
+
+    <footer><span>FASTAPI / PYDANTIC / OPENAI RESPONSES API</span><span>ENGINEERED BY ZESAI YUE</span></footer>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
+
